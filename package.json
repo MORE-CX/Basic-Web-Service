@@ -1,0 +1,22 @@
+{
+  "name": "b-p-n-m",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.6.1",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.19.1",
+    "request": "^2.88.0"
+  }
+}
