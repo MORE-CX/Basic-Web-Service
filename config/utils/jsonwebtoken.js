@@ -1,18 +1,10 @@
 const jwt = require('jsonwebtoken');
 const secretKey = 'yaquisieras'
-const expirateMins = 60
 
-
-module.exports.generate = (data = '', err = '') => {
-    var info = {}
-    if (data != null && data != '') info['data'] = data
-    if (err != null && err != '') info['err'] = err
-
-    return jwt.sign(info, secretKey
-    )
+exports.genToken=(data)=>{
+    return jwt.sign(data, secretKey)
 }
-
-module.exports.verify = (token) => {
+exports.verify = (token) => {
     try {
         return jwt.verify(token, secretKey) != "";
     } catch (error) {
@@ -20,7 +12,7 @@ module.exports.verify = (token) => {
     }
 }
 
-module.exports.decode = (token) => {
+exports.decode = (token) => {
     try {
         return jwt.decode(token);
     } catch (error) {
@@ -28,10 +20,24 @@ module.exports.decode = (token) => {
     }
 }
 
-module.exports.decodeComplete = (token) => {
+exports.decodeComplete = (token) => {
     try {
         return jwt.decode(token, { complete: true });
     } catch (error) {
         return false
+    }
+}
+
+exports.tokenValMidd = (req, res, next) => {
+    var url = req.url
+    if (url != '/user/guest') {
+        try{
+            var token = req.headers.authorization.substring(7);
+            (this.verify(token)) ? next() : res.status(401).send('Unauthorized Token');
+        }catch{
+            res.status(401).send('Unauthorized Token');
+        }   
+    }else{
+        next()
     }
 }

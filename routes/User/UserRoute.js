@@ -1,21 +1,19 @@
-const UserService = require('./UserService')
+const UserController = require('./UserController')
 const router = require('express').Router()
 
-router.get('/:id', function (req, res, next) {
-    id=req.params.id
-    console.log(id)
-    UserService.findById(id).then(val => {
-        res.send(val)
-    })
-})
+router.get('/one/:id', UserController.getById)
 
-router.post('/login', function (req, res, next) {
-    email=req.body.email
-    password=req.body.password
-    console.log(req.body)
-    UserService.login(email,password).then(val => {
-        res.send(val)
-    })
-})
+router.patch('/one/:id',UserController.update)
+
+router.delete('/one/:id',UserController.delete)
+
+router.get('/all', UserController.getAll)
+
+router.get('/guest', UserController.loginGuest)
+
+router.post('/login', UserController.loginUser)
+
+router.post('/register',UserController.register)
+
 
 module.exports = router
