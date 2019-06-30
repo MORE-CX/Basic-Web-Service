@@ -6,11 +6,7 @@ exports.app = app
 require('./config/middlewares/body-parser')
 require('./config/middlewares/morgan')
 require('./config/middlewares/mongoose')
-
-
-
-//Utils
-app.use( require('./config/utils/jsonwebtoken').tokenValMidd);
+require('./config/middlewares/jsonwebtoken')
 
 
 
