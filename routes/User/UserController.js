@@ -1,9 +1,10 @@
 const UserModel = require('../../db/models/UserDbModel')
 const to = require('../../config/utils/utilsFunctions').to
-const tc = require('../../config/utils/utilsFunctions').tc
 const bcrypt = require('bcrypt')
 const jwt = require('../../config/middlewares/jsonwebtoken')
 const Response = require('../../config/class/Response')
+
+
 
 exports.existByEmail = async (email) => {
     [err, user] = await to(UserModel.findOne({ email: email }));
@@ -34,8 +35,7 @@ exports.loginUser = async (req, res, next) => {
     var email = req.body.email;
     var password = req.body.password;
     var userDb = await this.getByEmail(email);
-    console.log(email,userDb,password)
-    var match=bcrypt.compareSync(password, userDb.password);
+    var match = bcrypt.compareSync(password, userDb.password);
     if (userDb && match) {
         var userJson = {
             rol: [{ _id: 1, name: 'user' }],
@@ -76,4 +76,14 @@ exports.delete = async (req, res, next) => {
     var id = req.params.id;
     [err, user] = await to(UserModel.findByIdAndDelete(id));
     return res.send(Response(err || !user ? false : true, err.message));
+}
+let authRoles;
+
+exports.authRols=(arrayRoles)=>{
+    this.authRoles=arrayRoles;
+    return this;
+}
+
+exports.filterRols = (req,res,next) => {
+    return (req.body.roles).every(r=>this.authRoles.includes(r))?next():res.status(401).send('Unauthorized token.');
 }

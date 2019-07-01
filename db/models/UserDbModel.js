@@ -1,4 +1,4 @@
-const mongoose=require('../DbConnector')
+const mongoose=require('../DbConnector');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
  
@@ -8,5 +8,5 @@ const UserSchema = new Schema({
   password: String
 },{collection:'user'});
 
-const UserDbModel=mongoose.model('user',UserSchema)
-module.exports=UserDbModel
+const UserDbModel=mongoose.model('user',UserSchema);
+module.exports=UserDbModel;

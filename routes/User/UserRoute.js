@@ -10,11 +10,15 @@ router.delete('/one/:id', UserController.delete)
 
 router.get('/all', UserController.getAll)
 
-router.get('/guest', UserController.loginGuest)
+router.get('/guest',[routeFilter([0])],UserController.loginGuest)
 
-router.post('/login', UserInputFormat.login ,UserController.loginUser)
+router.post('/login', [UserInputFormat.login,routeFilter([0])], UserController.loginUser)
 
-router.post('/register', UserInputFormat.register, UserController.register)
+router.post('/register', UserInputFormat.register, routeFilter([0]),UserController.register)
 
 
 module.exports = router
+
+function routeFilter(arrayRols){
+    return UserController.authRols(arrayRols).filterRols;
+}
