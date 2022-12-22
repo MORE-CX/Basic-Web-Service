@@ -17,7 +17,7 @@
     "fastest-validator": "^0.6.17",
     "fs": "0.0.1-security",
     "inquirer": "^6.4.1",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^5.6.1",
     "morgan": "^1.9.1",
     "nodemon": "^1.19.1",
